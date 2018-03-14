@@ -30,12 +30,12 @@ contract Lend {
     }
 
     function returnMoney(uint amount) public {
-        if (lended[msg.sender] < amount) {
-            emit ReturningTooMuch(lender, msg.sender, lended[msg.sender], amount);
-            return;
-        }
         if (msg.sender == lender) {
             emit LenderIsBorrower(lender);
+            return;
+        }
+        if (lended[msg.sender] < amount) {
+            emit ReturningTooMuch(lender, msg.sender, lended[msg.sender], amount);
             return;
         }
         lended[msg.sender] = lended[msg.sender] - amount;
