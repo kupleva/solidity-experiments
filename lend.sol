@@ -6,7 +6,7 @@ contract Lend {
 
     event CreatorSaved(address creator);
     event LentMoney(address lender, address borrower, uint amount);
-    event ReturnedMoney(address lender, address borrower, uint amount);
+    event ReturnedMoney(address lender, address borrower, uint returned, uint remaining);
     event LenderNotCreator(address creator, address lender);
     event LenderIsBorrower(address lender);
     event ReturningTooMuch(address lender, address borrower, uint lent, uint returning);
@@ -39,6 +39,6 @@ contract Lend {
             return;
         }
         lended[msg.sender] = lended[msg.sender] - amount;
-        emit ReturnedMoney(lender, msg.sender, amount);
+        emit ReturnedMoney(lender, msg.sender, amount, lended[msg.sender]);
     }
 }
